@@ -8,6 +8,8 @@ Produces human-readable explanations for why values are detected as outliers
 Price (2.50) looks low given Department is Books and Sale is false
 ```
 
+[![Build Status](https://travis-ci.org/ankane/outliertree.svg?branch=master)](https://travis-ci.org/ankane/outliertree)
+
 ## Installation
 
 Add this line to your application’s Gemfile:
