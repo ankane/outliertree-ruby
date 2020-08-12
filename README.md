@@ -85,6 +85,10 @@ Or a Rover data frame
 Rover.read_csv("data.csv")
 ```
 
+## Resources
+
+- [Explainable outlier detection through decision tree conditioning](https://arxiv.org/pdf/2001.00636.pdf)
+
 ## History
 
 View the [changelog](https://github.com/ankane/outliertree/blob/master/CHANGELOG.md)
