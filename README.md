@@ -87,7 +87,7 @@ Rover.read_csv("data.csv")
 
 ## Related Projects
 
-Check out [IsoTree](https://github.com/ankane/isotree) for outlier/anomaly detection using Isolation Forest if you need an outlier score for each observation.
+Check out [IsoTree](https://github.com/ankane/isotree) to get an outlier score for each observation.
 
 ## Resources
 
