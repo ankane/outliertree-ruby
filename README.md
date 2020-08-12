@@ -85,6 +85,10 @@ Or a Rover data frame
 Rover.read_csv("data.csv")
 ```
 
+## Related Projects
+
+Check out [IsoTree](https://github.com/ankane/isotree) for outlier/anomaly detection using Isolation Forest if you need an outlier score for each observation.
+
 ## Resources
 
 - [Explainable outlier detection through decision tree conditioning](https://arxiv.org/pdf/2001.00636.pdf)
