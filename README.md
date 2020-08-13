@@ -1,12 +1,14 @@
 # OutlierTree
 
-:evergreen_tree: [OutlierTree](https://github.com/david-cortes/outliertree) - explainable outlier/anomaly detection - for Ruby
+:deciduous_tree: [OutlierTree](https://github.com/david-cortes/outliertree) - explainable outlier/anomaly detection - for Ruby
 
 Produces human-readable explanations for why values are detected as outliers
 
 ```txt
 Price (2.50) looks low given Department is Books and Sale is false
 ```
+
+:evergreen_tree: Check out [IsoTree](https://github.com/ankane/isotree) for an alternative approach that uses Isolation Forest
 
 [![Build Status](https://travis-ci.org/ankane/outliertree.svg?branch=master)](https://travis-ci.org/ankane/outliertree)
 
@@ -84,10 +86,6 @@ Or a Rover data frame
 ```ruby
 Rover.read_csv("data.csv")
 ```
-
-## Related Projects
-
-Check out [IsoTree](https://github.com/ankane/isotree) to get an outlier score for each observation.
 
 ## Resources
 
