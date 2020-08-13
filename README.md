@@ -87,6 +87,21 @@ Or a Rover data frame
 Rover.read_csv("data.csv")
 ```
 
+## Performance
+
+OutlierTree uses OpenMP when possible for best performance. To enable OpenMP on Mac, run:
+
+```sh
+brew install libomp
+```
+
+Then reinstall the gem.
+
+```sh
+gem uninstall outliertree --force
+bundle install
+```
+
 ## Resources
 
 - [Explainable outlier detection through decision tree conditioning](https://arxiv.org/pdf/2001.00636.pdf)
