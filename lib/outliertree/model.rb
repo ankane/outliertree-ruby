@@ -74,7 +74,7 @@ module OutlierTree
       numeric_data = String.new
       @numeric_columns.each do |k|
         # more efficient for Rover
-        numeric_data << (df[k].respond_to?(:to) ? df[k].to(:float).to_numo.to_binary : df[k].pack("d*"))
+        numeric_data << (df[k].respond_to?(:to_numo) ? df[k].to_numo.cast_to(Numo::DFloat).to_binary : df[k].pack("d*"))
       end
       options[:numeric_data] = numeric_data
       options[:ncols_numeric] = @numeric_columns.size
@@ -92,7 +92,7 @@ module OutlierTree
           warn "[outliertree] Unseen values in column: #{k}"
         end
         # more efficient for Rover
-        categorical_data << (values.respond_to?(:to) ? values.to(:int32).to_numo.to_binary : values.pack("i*"))
+        categorical_data << (values.respond_to?(:to_numo) ? values.to_numo.cast_to(Numo::Int32).to_binary : values.pack("i*"))
         ncat << [categories.size].pack("i")
       end
       options[:categorical_data] = categorical_data
