@@ -10,7 +10,7 @@ Price (2.50) looks low given Department is Books and Sale is false
 
 :evergreen_tree: Check out [IsoTree](https://github.com/ankane/isotree) for an alternative approach that uses Isolation Forest
 
-[![Build Status](https://travis-ci.org/ankane/outliertree.svg?branch=master)](https://travis-ci.org/ankane/outliertree)
+[![Build Status](https://github.com/ankane/outliertree/workflows/build/badge.svg?branch=master)](https://github.com/ankane/outliertree/actions)
 
 ## Installation
 
