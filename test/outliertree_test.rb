@@ -44,6 +44,7 @@ class OutlierTreeTest < Minitest::Test
   def test_missing_values
     model = OutlierTree.new
     train_data[1][:numeric_col1] = nil
+    train_data[3][:categ_col] = nil
     model.fit(train_data)
     outliers = model.outliers(test_data)
     assert_equal 1, outliers.size
