@@ -74,7 +74,7 @@ module OutlierTree
       numeric_data = String.new
       @numeric_columns.each do |k|
         # more efficient for Rover
-        numeric_data << (df[k].respond_to?(:to_numo) ? df[k].to_numo.cast_to(Numo::DFloat).to_binary : df[k].pack("d*"))
+        numeric_data << (df[k].respond_to?(:to_numo) ? df[k].to_numo.cast_to(Numo::DFloat).to_binary : df[k].map { |v| v.nil? ? Float::NAN : v }.pack("d*"))
       end
       options[:numeric_data] = numeric_data
       options[:ncols_numeric] = @numeric_columns.size

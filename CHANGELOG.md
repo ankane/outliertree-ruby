@@ -1,3 +1,7 @@
+## 0.1.2 (unreleased)
+
+- Fixed error with missing numeric values
+
 ## 0.1.1 (2020-08-21)
 
 - Fixed error when Active Support loaded
