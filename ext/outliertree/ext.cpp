@@ -2,12 +2,8 @@
 #include <outlier_tree.hpp>
 
 // rice
-#include <rice/Array.hpp>
-#include <rice/Hash.hpp>
-#include <rice/Module.hpp>
-#include <rice/Object.hpp>
-#include <rice/String.hpp>
-#include <rice/Symbol.hpp>
+#include <rice/rice.hpp>
+#include <rice/stl.hpp>
 
 using Rice::Array;
 using Rice::Hash;
@@ -18,74 +14,77 @@ using Rice::Symbol;
 using Rice::define_class_under;
 using Rice::define_module;
 
-template<>
-Object to_ruby<std::vector<char>>(std::vector<char> const & x)
+namespace Rice::detail
 {
-  Array a;
-  for (size_t i = 0; i < x.size(); i++) {
-    a.push(x[i]);
-  }
-  return a;
-}
+  template<typename T>
+  class To_Ruby<std::vector<T>>
+  {
+  public:
+    VALUE convert(std::vector<T> const & x)
+    {
+      auto a = rb_ary_new2(x.size());
+      for (const auto& v : x) {
+        rb_ary_push(a, To_Ruby<T>().convert(v));
+      }
+      return a;
+    }
+  };
 
-template<>
-Object to_ruby<std::vector<int>>(std::vector<int> const & x)
-{
-  Array a;
-  for (size_t i = 0; i < x.size(); i++) {
-    a.push(x[i]);
-  }
-  return a;
-}
+  template<>
+  struct Type<ColType>
+  {
+    static bool verify()
+    {
+      return true;
+    }
+  };
 
-template<>
-Object to_ruby<std::vector<unsigned long>>(std::vector<unsigned long> const & x)
-{
-  Array a;
-  for (size_t i = 0; i < x.size(); i++) {
-    a.push(x[i]);
-  }
-  return a;
-}
+  template<>
+  class To_Ruby<ColType>
+  {
+  public:
+    VALUE convert(ColType const & x)
+    {
+      switch (x) {
+        case Numeric: return Symbol("numeric");
+        case Categorical: return Symbol("categorical");
+        case Ordinal: return Symbol("ordinal");
+        case NoType: return Symbol("no_type");
+      }
+      throw std::runtime_error("Unknown column type");
+    }
+  };
 
-template<>
-Object to_ruby<std::vector<double>>(std::vector<double> const & x)
-{
-  Array a;
-  for (size_t i = 0; i < x.size(); i++) {
-    a.push(x[i]);
-  }
-  return a;
-}
+  template<>
+  struct Type<SplitType>
+  {
+    static bool verify()
+    {
+      return true;
+    }
+  };
 
-template<>
-Object to_ruby<ColType>(ColType const & x)
-{
-  switch (x) {
-    case Numeric: return Symbol("numeric");
-    case Categorical: return Symbol("categorical");
-    case Ordinal: return Symbol("ordinal");
-    case NoType: return Symbol("no_type");
-  }
-  throw std::runtime_error("Unknown column type");
-}
-
-template<>
-Object to_ruby<SplitType>(SplitType const & x)
-{
-  switch (x) {
-    case LessOrEqual: return Symbol("less_or_equal");
-    case Greater: return Symbol("greater");
-    case Equal: return Symbol("equal");
-    case NotEqual: return Symbol("not_equal");
-    case InSubset: return Symbol("in_subset");
-    case NotInSubset: return Symbol("not_in_subset");
-    case SingleCateg: return Symbol("single_categ");
-    case SubTrees: return Symbol("sub_trees");
-    case IsNa: return Symbol("is_na");
-    case Root: return Symbol("root");
-  }
-  throw std::runtime_error("Unknown split type");
+  template<>
+  class To_Ruby<SplitType>
+  {
+  public:
+    VALUE convert(SplitType const & x)
+    {
+      switch (x) {
+        case LessOrEqual: return Symbol("less_or_equal");
+        case Greater: return Symbol("greater");
+        case Equal: return Symbol("equal");
+        case NotEqual: return Symbol("not_equal");
+        case InSubset: return Symbol("in_subset");
+        case NotInSubset: return Symbol("not_in_subset");
+        case SingleCateg: return Symbol("single_categ");
+        case SubTrees: return Symbol("sub_trees");
+        case IsNa: return Symbol("is_na");
+        case Root: return Symbol("root");
+      }
+      throw std::runtime_error("Unknown split type");
+    }
+  };
 }
 
 extern "C"
@@ -95,55 +94,55 @@ void Init_ext()
   Module rb_mExt = define_module_under(rb_mOutlierTree, "Ext");
 
   define_class_under<Cluster>(rb_mExt, "Cluster")
-    .define_method("upper_lim", *[](Cluster& self) { return self.upper_lim; })
-    .define_method("display_lim_high", *[](Cluster& self) { return self.display_lim_high; })
-    .define_method("perc_below", *[](Cluster& self) { return self.perc_below; })
-    .define_method("display_lim_low", *[](Cluster& self) { return self.display_lim_low; })
-    .define_method("perc_above", *[](Cluster& self) { return self.perc_above; })
-    .define_method("display_mean", *[](Cluster& self) { return self.display_mean; })
-    .define_method("display_sd", *[](Cluster& self) { return self.display_sd; })
-    .define_method("cluster_size", *[](Cluster& self) { return self.cluster_size; })
-    .define_method("split_point", *[](Cluster& self) { return self.split_point; })
-    .define_method("split_subset", *[](Cluster& self) { return self.split_subset; })
-    .define_method("split_lev", *[](Cluster& self) { return self.split_lev; })
-    .define_method("split_type", *[](Cluster& self) { return self.split_type; })
-    .define_method("column_type", *[](Cluster& self) { return self.column_type; })
-    .define_method("has_na_branch", *[](Cluster& self) { return self.has_NA_branch; })
-    .define_method("col_num", *[](Cluster& self) { return self.col_num; });
+    .define_method("upper_lim", [](Cluster& self) { return self.upper_lim; })
+    .define_method("display_lim_high", [](Cluster& self) { return self.display_lim_high; })
+    .define_method("perc_below", [](Cluster& self) { return self.perc_below; })
+    .define_method("display_lim_low", [](Cluster& self) { return self.display_lim_low; })
+    .define_method("perc_above", [](Cluster& self) { return self.perc_above; })
+    .define_method("display_mean", [](Cluster& self) { return self.display_mean; })
+    .define_method("display_sd", [](Cluster& self) { return self.display_sd; })
+    .define_method("cluster_size", [](Cluster& self) { return self.cluster_size; })
+    .define_method("split_point", [](Cluster& self) { return self.split_point; })
+    .define_method("split_subset", [](Cluster& self) { return self.split_subset; })
+    .define_method("split_lev", [](Cluster& self) { return self.split_lev; })
+    .define_method("split_type", [](Cluster& self) { return self.split_type; })
+    .define_method("column_type", [](Cluster& self) { return self.column_type; })
+    .define_method("has_na_branch", [](Cluster& self) { return self.has_NA_branch; })
+    .define_method("col_num", [](Cluster& self) { return self.col_num; });
 
   define_class_under<ClusterTree>(rb_mExt, "ClusterTree")
-    .define_method("parent_branch", *[](ClusterTree& self) { return self.parent_branch; })
-    .define_method("parent", *[](ClusterTree& self) { return self.parent; })
-    .define_method("all_branches", *[](ClusterTree& self) { return self.all_branches; })
-    .define_method("column_type", *[](ClusterTree& self) { return self.column_type; })
-    .define_method("col_num", *[](ClusterTree& self) { return self.col_num; })
-    .define_method("split_point", *[](ClusterTree& self) { return self.split_point; })
-    .define_method("split_subset", *[](ClusterTree& self) { return self.split_subset; })
-    .define_method("split_lev", *[](ClusterTree& self) { return self.split_lev; });
+    .define_method("parent_branch", [](ClusterTree& self) { return self.parent_branch; })
+    .define_method("parent", [](ClusterTree& self) { return self.parent; })
+    .define_method("all_branches", [](ClusterTree& self) { return self.all_branches; })
+    .define_method("column_type", [](ClusterTree& self) { return self.column_type; })
+    .define_method("col_num", [](ClusterTree& self) { return self.col_num; })
+    .define_method("split_point", [](ClusterTree& self) { return self.split_point; })
+    .define_method("split_subset", [](ClusterTree& self) { return self.split_subset; })
+    .define_method("split_lev", [](ClusterTree& self) { return self.split_lev; });
 
   define_class_under<ModelOutputs>(rb_mExt, "ModelOutputs")
-    .define_method("outlier_scores_final", *[](ModelOutputs& self) { return self.outlier_scores_final; })
-    .define_method("outlier_columns_final", *[](ModelOutputs& self) { return self.outlier_columns_final; })
-    .define_method("outlier_clusters_final", *[](ModelOutputs& self) { return self.outlier_clusters_final; })
-    .define_method("outlier_trees_final", *[](ModelOutputs& self) { return self.outlier_trees_final; })
-    .define_method("outlier_depth_final", *[](ModelOutputs& self) { return self.outlier_depth_final; })
-    .define_method("outlier_decimals_distr", *[](ModelOutputs& self) { return self.outlier_decimals_distr; })
-    .define_method("min_decimals_col", *[](ModelOutputs& self) { return self.min_decimals_col; })
+    .define_method("outlier_scores_final", [](ModelOutputs& self) { return self.outlier_scores_final; })
+    .define_method("outlier_columns_final", [](ModelOutputs& self) { return self.outlier_columns_final; })
+    .define_method("outlier_clusters_final", [](ModelOutputs& self) { return self.outlier_clusters_final; })
+    .define_method("outlier_trees_final", [](ModelOutputs& self) { return self.outlier_trees_final; })
+    .define_method("outlier_depth_final", [](ModelOutputs& self) { return self.outlier_depth_final; })
+    .define_method("outlier_decimals_distr", [](ModelOutputs& self) { return self.outlier_decimals_distr; })
+    .define_method("min_decimals_col", [](ModelOutputs& self) { return self.min_decimals_col; })
     .define_method(
       "all_clusters",
-      *[](ModelOutputs& self, size_t i, size_t j) {
+      [](ModelOutputs& self, size_t i, size_t j) {
         return self.all_clusters[i][j];
       })
     .define_method(
       "all_trees",
-      *[](ModelOutputs& self, size_t i, size_t j) {
+      [](ModelOutputs& self, size_t i, size_t j) {
         return self.all_trees[i][j];
       });
 
   rb_mExt
-    .define_singleton_method(
+    .define_singleton_function(
       "fit_outliers_models",
-      *[](Hash options) {
+      [](Hash options) {
         ModelOutputs model_outputs;
 
         // data
@@ -219,9 +218,9 @@ void Init_ext()
         );
         return model_outputs;
       })
-    .define_singleton_method(
+    .define_singleton_function(
       "find_new_outliers",
-      *[](ModelOutputs& model_outputs, Hash options) {
+      [](ModelOutputs& model_outputs, Hash options) {
         // data
         size_t nrows = options.get<size_t, Symbol>("nrows");
         size_t ncols_numeric = options.get<size_t, Symbol>("ncols_numeric");

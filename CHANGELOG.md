@@ -1,3 +1,8 @@
+## 0.2.0 (unreleased)
+
+- Updated to Rice 4
+- Dropped support for Ruby < 2.6
+
 ## 0.1.2 (2021-02-08)
 
 - Fixed error with missing numeric values
