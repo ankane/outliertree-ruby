@@ -4,7 +4,7 @@ Gem::Specification.new do |spec|
   spec.name          = "outliertree"
   spec.version       = OutlierTree::VERSION
   spec.summary       = "Explainable outlier/anomaly detection for Ruby"
-  spec.homepage      = "https://github.com/ankane/outliertree"
+  spec.homepage      = "https://github.com/ankane/outliertree-ruby"
   spec.license       = "GPL-3.0-or-later"
 
   spec.author        = "Andrew Kane"

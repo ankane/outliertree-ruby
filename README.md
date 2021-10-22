@@ -1,4 +1,4 @@
-# OutlierTree
+# OutlierTree Ruby
 
 :deciduous_tree: [OutlierTree](https://github.com/david-cortes/outliertree) - explainable outlier/anomaly detection - for Ruby
 
@@ -8,9 +8,9 @@ Produces human-readable explanations for why values are detected as outliers
 Price (2.50) looks low given Department is Books and Sale is false
 ```
 
-:evergreen_tree: Check out [IsoTree](https://github.com/ankane/isotree) for an alternative approach that uses Isolation Forest
+:evergreen_tree: Check out [IsoTree](https://github.com/ankane/isotree-ruby) for an alternative approach that uses Isolation Forest
 
-[![Build Status](https://github.com/ankane/outliertree/workflows/build/badge.svg?branch=master)](https://github.com/ankane/outliertree/actions)
+[![Build Status](https://github.com/ankane/outliertree-ruby/workflows/build/badge.svg?branch=master)](https://github.com/ankane/outliertree-ruby/actions)
 
 ## Installation
 
@@ -108,22 +108,22 @@ bundle install
 
 ## History
 
-View the [changelog](https://github.com/ankane/outliertree/blob/master/CHANGELOG.md)
+View the [changelog](https://github.com/ankane/outliertree-ruby/blob/master/CHANGELOG.md)
 
 ## Contributing
 
 Everyone is encouraged to help improve this project. Here are a few ways you can help:
 
-- [Report bugs](https://github.com/ankane/outliertree/issues)
-- Fix bugs and [submit pull requests](https://github.com/ankane/outliertree/pulls)
+- [Report bugs](https://github.com/ankane/outliertree-ruby/issues)
+- Fix bugs and [submit pull requests](https://github.com/ankane/outliertree-ruby/pulls)
 - Write, clarify, or fix documentation
 - Suggest or add new features
 
 To get started with development:
 
 ```sh
-git clone --recursive https://github.com/ankane/outliertree.git
-cd outliertree
+git clone --recursive https://github.com/ankane/outliertree-ruby.git
+cd outliertree-ruby
 bundle install
 bundle exec rake compile
 bundle exec rake test
