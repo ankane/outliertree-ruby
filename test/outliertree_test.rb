@@ -17,7 +17,7 @@ class OutlierTreeTest < Minitest::Test
     assert_equal 0, outlier[:index]
     assert_equal "numeric_col2 (-1000000.0) looks low", outlier[:explanation]
     assert_equal :numeric_col2, outlier[:column]
-    assert_equal -1000000, outlier[:value]
+    assert_equal(-1000000, outlier[:value])
     assert_equal [], outlier[:conditions]
   end
 
@@ -37,7 +37,7 @@ class OutlierTreeTest < Minitest::Test
     assert_equal 0, outlier[:index]
     assert_equal "numeric_col2 (-1000000.0) looks low", outlier[:explanation]
     assert_equal :numeric_col2, outlier[:column]
-    assert_equal -1000000, outlier[:value]
+    assert_equal(-1000000, outlier[:value])
     assert_equal [], outlier[:conditions]
   end
 

@@ -22,7 +22,7 @@ module OutlierTree
           if outl_col < @numeric_columns.size
             column = @numeric_columns[outl_col]
             value = df[column][row]
-            decimals = model_outputs.outlier_decimals_distr[row]
+            _decimals = model_outputs.outlier_decimals_distr[row]
           else
             column = @categorical_columns[outl_col - @numeric_columns.size]
             value = df[column][row]
@@ -94,11 +94,11 @@ module OutlierTree
     private
 
     def add_condition(row, split_type, cluster)
-      coldecim = 0
+      _coldecim = 0
       case cluster.column_type
       when :numeric
         cond_col = @numeric_columns[cluster.col_num]
-        coldecim = model_outputs.min_decimals_col[cluster.col_num]
+        _coldecim = model_outputs.min_decimals_col[cluster.col_num]
       else
         cond_col = @categorical_columns[cluster.col_num]
       end
