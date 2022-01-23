@@ -17,7 +17,7 @@ Price (2.50) looks low given Department is Books and Sale is false
 Add this line to your application’s Gemfile:
 
 ```ruby
-gem 'outliertree'
+gem "outliertree"
 ```
 
 ## Getting Started
