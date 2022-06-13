@@ -1,6 +1,6 @@
 require "mkmf-rice"
 
-$CXXFLAGS += " -std=c++17 $(optflags)"
+$CXXFLAGS += " -std=c++17 $(optflags) -DDONT_THROW_ON_INTERRUPT"
 
 apple_clang = RbConfig::CONFIG["CC_VERSION_MESSAGE"] =~ /apple clang/i
 
