@@ -28,7 +28,8 @@ Prep your data
 data = [
   {department: "Books",  sale: false, price: 2.50},
   {department: "Books",  sale: true,  price: 3.00},
-  {department: "Movies", sale: false, price: 5.00}
+  {department: "Movies", sale: false, price: 5.00},
+  # ...
 ]
 ```
 
