@@ -1,4 +1,4 @@
-## 0.3.0 (unreleased)
+## 0.3.0 (2022-06-13)
 
 - Updated OutlierTree to 1.8.1
 - Dropped support for Ruby < 2.7
