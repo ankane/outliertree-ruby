@@ -1,3 +1,7 @@
+## 0.3.0 (unreleased)
+
+- Updated OutlierTree to 1.8.1
+
 ## 0.2.1 (2021-05-23)
 
 - Improved performance
