@@ -1,4 +1,4 @@
-## 0.3.1 (unreleased)
+## 0.3.1 (2023-12-19)
 
 - Updated OutlierTree to 1.8.2
 - Fixed error with Rice 4.1
