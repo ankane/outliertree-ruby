@@ -5,10 +5,10 @@ require "outliertree/ext"
 require "etc"
 
 # modules
-require "outliertree/dataset"
-require "outliertree/model"
-require "outliertree/result"
-require "outliertree/version"
+require_relative "outliertree/dataset"
+require_relative "outliertree/model"
+require_relative "outliertree/result"
+require_relative "outliertree/version"
 
 module OutlierTree
   def self.new(**options)
