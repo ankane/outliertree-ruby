@@ -31,6 +31,29 @@ namespace Rice::detail
   };
 
   template<>
+  class To_Ruby<std::vector<signed char>>
+  {
+  public:
+    VALUE convert(std::vector<signed char> const & x)
+    {
+      auto a = rb_ary_new2(x.size());
+      for (const auto& v : x) {
+        rb_ary_push(a, To_Ruby<signed char>().convert(v));
+      }
+      return a;
+    }
+  };
+
+  template<>
+  struct Type<std::vector<signed char>>
+  {
+    static bool verify()
+    {
+      return true;
+    }
+  };
+
+  template<>
   struct Type<ColType>
   {
     static bool verify()
