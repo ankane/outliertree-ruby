@@ -10,7 +10,7 @@ Price (2.50) looks low given Department is Books and Sale is false
 
 :evergreen_tree: Check out [IsoTree](https://github.com/ankane/isotree-ruby) for an alternative approach that uses Isolation Forest
 
-[![Build Status](https://github.com/ankane/outliertree-ruby/workflows/build/badge.svg?branch=master)](https://github.com/ankane/outliertree-ruby/actions)
+[![Build Status](https://github.com/ankane/outliertree-ruby/actions/workflows/build.yml/badge.svg)](https://github.com/ankane/outliertree-ruby/actions)
 
 ## Installation
 
