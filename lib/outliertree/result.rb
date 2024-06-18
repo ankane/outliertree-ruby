@@ -80,7 +80,7 @@ module OutlierTree
             column: column,
             value: value,
             conditions: conditions,
-            group_statistics: group_statistics,
+            group_statistics: group_statistics
             # leave out for simplicity
             # score: score,
             # tree_depth: model_outputs.outlier_depth_final[row],
@@ -128,7 +128,7 @@ module OutlierTree
         column: cond_col,
         comparison: colcond,
         to: condval,
-        value: colval,
+        value: colval
         # leave out for simplicity
         # decimals: coldecim
       }
