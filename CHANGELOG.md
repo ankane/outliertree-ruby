@@ -1,4 +1,4 @@
-## 0.4.1 (unreleased)
+## 0.4.1 (2025-04-23)
 
 - Updated OutlierTree to 1.10.0
 
