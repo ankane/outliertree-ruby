@@ -1,11 +1,20 @@
 module OutlierTree
   class Model
     def initialize(
-      max_depth: 4, min_gain: 0.01, z_norm: 2.67, z_outlier: 8.0, pct_outliers: 0.01,
-      min_size_numeric: 25, min_size_categ: 50, categ_split: "binarize", categ_outliers: "tail",
-      numeric_split: "raw", follow_all: false, gain_as_pct: true, nthreads: -1
+      max_depth: 4,
+      min_gain: 0.01,
+      z_norm: 2.67,
+      z_outlier: 8.0,
+      pct_outliers: 0.01,
+      min_size_numeric: 25,
+      min_size_categ: 50,
+      categ_split: "binarize",
+      categ_outliers: "tail",
+      numeric_split: "raw",
+      follow_all: false,
+      gain_as_pct: true,
+      nthreads: -1
     )
-
       # TODO validate values
       @max_depth = max_depth
       @min_gain = min_gain
