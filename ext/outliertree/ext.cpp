@@ -1,3 +1,5 @@
+#include <vector>
+
 // outliertree
 #include <outlier_tree.hpp>
 
@@ -7,21 +9,15 @@
 
 using Rice::Array;
 using Rice::Hash;
-using Rice::Module;
 using Rice::Object;
 using Rice::String;
 using Rice::Symbol;
-using Rice::define_class_under;
-using Rice::define_module;
 
-namespace Rice::detail
-{
+namespace Rice::detail {
   template<typename T>
-  class To_Ruby<std::vector<T>>
-  {
+  class To_Ruby<std::vector<T>> {
   public:
-    VALUE convert(std::vector<T> const & x)
-    {
+    VALUE convert(std::vector<T> const & x) {
       auto a = rb_ary_new2(x.size());
       for (const auto& v : x) {
         rb_ary_push(a, To_Ruby<T>().convert(v));
@@ -31,11 +27,9 @@ namespace Rice::detail
   };
 
   template<>
-  class To_Ruby<std::vector<signed char>>
-  {
+  class To_Ruby<std::vector<signed char>> {
   public:
-    VALUE convert(std::vector<signed char> const & x)
-    {
+    VALUE convert(std::vector<signed char> const & x) {
       auto a = rb_ary_new2(x.size());
       for (const auto& v : x) {
         rb_ary_push(a, To_Ruby<signed char>().convert(v));
@@ -45,29 +39,23 @@ namespace Rice::detail
   };
 
   template<>
-  struct Type<std::vector<signed char>>
-  {
-    static bool verify()
-    {
+  struct Type<std::vector<signed char>> {
+    static bool verify() {
       return true;
     }
   };
 
   template<>
-  struct Type<ColType>
-  {
-    static bool verify()
-    {
+  struct Type<ColType> {
+    static bool verify() {
       return true;
     }
   };
 
   template<>
-  class To_Ruby<ColType>
-  {
+  class To_Ruby<ColType> {
   public:
-    VALUE convert(ColType const & x)
-    {
+    VALUE convert(ColType const & x) {
       switch (x) {
         case Numeric: return Symbol("numeric");
         case Categorical: return Symbol("categorical");
@@ -79,20 +67,16 @@ namespace Rice::detail
   };
 
   template<>
-  struct Type<SplitType>
-  {
-    static bool verify()
-    {
+  struct Type<SplitType> {
+    static bool verify() {
       return true;
     }
   };
 
   template<>
-  class To_Ruby<SplitType>
-  {
+  class To_Ruby<SplitType> {
   public:
-    VALUE convert(SplitType const & x)
-    {
+    VALUE convert(SplitType const & x) {
       switch (x) {
         case LessOrEqual: return Symbol("less_or_equal");
         case Greater: return Symbol("greater");
@@ -108,15 +92,14 @@ namespace Rice::detail
       throw std::runtime_error("Unknown split type");
     }
   };
-}
+} // namespace Rice::detail
 
 extern "C"
-void Init_ext()
-{
-  Module rb_mOutlierTree = define_module("OutlierTree");
-  Module rb_mExt = define_module_under(rb_mOutlierTree, "Ext");
+void Init_ext() {
+  Rice::Module rb_mOutlierTree = Rice::define_module("OutlierTree");
+  Rice::Module rb_mExt = Rice::define_module_under(rb_mOutlierTree, "Ext");
 
-  define_class_under<Cluster>(rb_mExt, "Cluster")
+  Rice::define_class_under<Cluster>(rb_mExt, "Cluster")
     .define_method("upper_lim", [](Cluster& self) { return self.upper_lim; })
     .define_method("display_lim_high", [](Cluster& self) { return self.display_lim_high; })
     .define_method("perc_below", [](Cluster& self) { return self.perc_below; })
@@ -133,7 +116,7 @@ void Init_ext()
     .define_method("has_na_branch", [](Cluster& self) { return self.has_NA_branch; })
     .define_method("col_num", [](Cluster& self) { return self.col_num; });
 
-  define_class_under<ClusterTree>(rb_mExt, "ClusterTree")
+  Rice::define_class_under<ClusterTree>(rb_mExt, "ClusterTree")
     .define_method("parent_branch", [](ClusterTree& self) { return self.parent_branch; })
     .define_method("parent", [](ClusterTree& self) { return self.parent; })
     .define_method("all_branches", [](ClusterTree& self) { return self.all_branches; })
@@ -143,7 +126,7 @@ void Init_ext()
     .define_method("split_subset", [](ClusterTree& self) { return self.split_subset; })
     .define_method("split_lev", [](ClusterTree& self) { return self.split_lev; });
 
-  define_class_under<ModelOutputs>(rb_mExt, "ModelOutputs")
+  Rice::define_class_under<ModelOutputs>(rb_mExt, "ModelOutputs")
     .define_method("outlier_scores_final", [](ModelOutputs& self) { return self.outlier_scores_final; })
     .define_method("outlier_columns_final", [](ModelOutputs& self) { return self.outlier_columns_final; })
     .define_method("outlier_clusters_final", [](ModelOutputs& self) { return self.outlier_clusters_final; })
