@@ -4,6 +4,9 @@
 // outliertree
 #include <outlier_tree.hpp>
 
+// fix warning
+#undef restrict
+
 // rice
 #include <rice/rice.hpp>
 #include <rice/stl.hpp>
