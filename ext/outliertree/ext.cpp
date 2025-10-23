@@ -18,6 +18,10 @@ namespace Rice::detail {
   template<typename T>
   class To_Ruby<std::vector<T>> {
   public:
+    To_Ruby() = default;
+
+    explicit To_Ruby(Arg* arg) : arg_(arg) { }
+
     VALUE convert(std::vector<T> const & x) {
       auto a = rb_ary_new2(x.size());
       for (const auto& v : x) {
@@ -25,11 +29,18 @@ namespace Rice::detail {
       }
       return a;
     }
+
+  private:
+    Arg* arg_ = nullptr;
   };
 
   template<>
   class To_Ruby<std::vector<signed char>> {
   public:
+    To_Ruby() = default;
+
+    explicit To_Ruby(Arg* arg) : arg_(arg) { }
+
     VALUE convert(std::vector<signed char> const & x) {
       auto a = rb_ary_new2(x.size());
       for (const auto& v : x) {
@@ -37,6 +48,9 @@ namespace Rice::detail {
       }
       return a;
     }
+
+  private:
+    Arg* arg_ = nullptr;
   };
 
   template<>
@@ -56,6 +70,10 @@ namespace Rice::detail {
   template<>
   class To_Ruby<ColType> {
   public:
+    To_Ruby() = default;
+
+    explicit To_Ruby(Arg* arg) : arg_(arg) { }
+
     VALUE convert(ColType const & x) {
       switch (x) {
         case Numeric: return Symbol("numeric");
@@ -65,6 +83,9 @@ namespace Rice::detail {
       }
       throw std::runtime_error("Unknown column type");
     }
+
+  private:
+    Arg* arg_ = nullptr;
   };
 
   template<>
@@ -77,6 +98,10 @@ namespace Rice::detail {
   template<>
   class To_Ruby<SplitType> {
   public:
+    To_Ruby() = default;
+
+    explicit To_Ruby(Arg* arg) : arg_(arg) { }
+
     VALUE convert(SplitType const & x) {
       switch (x) {
         case LessOrEqual: return Symbol("less_or_equal");
@@ -92,6 +117,9 @@ namespace Rice::detail {
       }
       throw std::runtime_error("Unknown split type");
     }
+
+  private:
+    Arg* arg_ = nullptr;
   };
 } // namespace Rice::detail
 
