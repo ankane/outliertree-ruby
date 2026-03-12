@@ -38,32 +38,6 @@ namespace Rice::detail {
   };
 
   template<>
-  class To_Ruby<std::vector<signed char>> {
-  public:
-    To_Ruby() = default;
-
-    explicit To_Ruby(Arg* arg) : arg_(arg) { }
-
-    VALUE convert(const std::vector<signed char>& x) {
-      auto a = detail::protect(rb_ary_new2, x.size());
-      for (const auto& v : x) {
-        detail::protect(rb_ary_push, a, To_Ruby<signed char>().convert(v));
-      }
-      return a;
-    }
-
-  private:
-    Arg* arg_ = nullptr;
-  };
-
-  template<>
-  struct Type<std::vector<signed char>> {
-    static bool verify() {
-      return true;
-    }
-  };
-
-  template<>
   struct Type<ColType> {
     static bool verify() {
       return true;
