@@ -25,10 +25,10 @@ namespace Rice::detail {
 
     explicit To_Ruby(Arg* arg) : arg_(arg) { }
 
-    VALUE convert(std::vector<T> const & x) {
-      auto a = rb_ary_new2(x.size());
+    VALUE convert(const std::vector<T>& x) {
+      auto a = detail::protect(rb_ary_new2, x.size());
       for (const auto& v : x) {
-        rb_ary_push(a, To_Ruby<T>().convert(v));
+        detail::protect(rb_ary_push, a, To_Ruby<T>().convert(v));
       }
       return a;
     }
@@ -44,10 +44,10 @@ namespace Rice::detail {
 
     explicit To_Ruby(Arg* arg) : arg_(arg) { }
 
-    VALUE convert(std::vector<signed char> const & x) {
-      auto a = rb_ary_new2(x.size());
+    VALUE convert(const std::vector<signed char>& x) {
+      auto a = detail::protect(rb_ary_new2, x.size());
       for (const auto& v : x) {
-        rb_ary_push(a, To_Ruby<signed char>().convert(v));
+        detail::protect(rb_ary_push, a, To_Ruby<signed char>().convert(v));
       }
       return a;
     }
