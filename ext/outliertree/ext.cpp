@@ -161,27 +161,27 @@ void Init_ext() {
         auto ncols_categ = options.get<size_t, Symbol>("ncols_categ");
         auto ncols_ord = options.get<size_t, Symbol>("ncols_ord");
 
-        double *restrict numeric_data = nullptr;
+        double* numeric_data = nullptr;
         if (ncols_numeric > 0) {
           numeric_data = (double*) options.get<String, Symbol>("numeric_data").c_str();
         }
 
-        int *restrict categorical_data = nullptr;
-        int *restrict ncat = nullptr;
+        int* categorical_data = nullptr;
+        int* ncat = nullptr;
         if (ncols_categ > 0) {
           categorical_data = (int*) options.get<String, Symbol>("categorical_data").c_str();
           ncat = (int*) options.get<String, Symbol>("ncat").c_str();
         }
 
-        int *restrict ordinal_data = nullptr;
-        int *restrict ncat_ord = nullptr;
+        int* ordinal_data = nullptr;
+        int* ncat_ord = nullptr;
         if (ncols_ord > 0) {
           ordinal_data = (int*) options.get<String, Symbol>("ordinal_data").c_str();
           ncat_ord = (int*) options.get<String, Symbol>("ncat_ord").c_str();
         }
 
         // options
-        char *restrict cols_ignore = nullptr;
+        char* cols_ignore = nullptr;
         auto nthreads = options.get<int, Symbol>("nthreads");
         auto categ_as_bin = options.get<bool, Symbol>("categ_as_bin");
         auto ord_as_bin = options.get<bool, Symbol>("ord_as_bin");
@@ -237,17 +237,17 @@ void Init_ext() {
         auto ncols_categ = options.get<size_t, Symbol>("ncols_categ");
         auto ncols_ord = options.get<size_t, Symbol>("ncols_ord");
 
-        double *restrict numeric_data = nullptr;
+        double* numeric_data = nullptr;
         if (ncols_numeric > 0) {
           numeric_data = (double*) options.get<String, Symbol>("numeric_data").c_str();
         }
 
-        int *restrict categorical_data = nullptr;
+        int* categorical_data = nullptr;
         if (ncols_categ > 0) {
           categorical_data = (int*) options.get<String, Symbol>("categorical_data").c_str();
         }
 
-        int *restrict ordinal_data = nullptr;
+        int* ordinal_data = nullptr;
         if (ncols_ord > 0) {
           ordinal_data = (int*) options.get<String, Symbol>("ordinal_data").c_str();
         }
