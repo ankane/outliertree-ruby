@@ -163,21 +163,21 @@ void Init_ext() {
 
         double* numeric_data = nullptr;
         if (ncols_numeric > 0) {
-          numeric_data = (double*) options.get<String, Symbol>("numeric_data").c_str();
+          numeric_data = reinterpret_cast<double*>(const_cast<char*>(options.get<String, Symbol>("numeric_data").c_str()));
         }
 
         int* categorical_data = nullptr;
         int* ncat = nullptr;
         if (ncols_categ > 0) {
-          categorical_data = (int*) options.get<String, Symbol>("categorical_data").c_str();
-          ncat = (int*) options.get<String, Symbol>("ncat").c_str();
+          categorical_data = reinterpret_cast<int*>(const_cast<char*>(options.get<String, Symbol>("categorical_data").c_str()));
+          ncat = reinterpret_cast<int*>(const_cast<char*>(options.get<String, Symbol>("ncat").c_str()));
         }
 
         int* ordinal_data = nullptr;
         int* ncat_ord = nullptr;
         if (ncols_ord > 0) {
-          ordinal_data = (int*) options.get<String, Symbol>("ordinal_data").c_str();
-          ncat_ord = (int*) options.get<String, Symbol>("ncat_ord").c_str();
+          ordinal_data = reinterpret_cast<int*>(const_cast<char*>(options.get<String, Symbol>("ordinal_data").c_str()));
+          ncat_ord = reinterpret_cast<int*>(const_cast<char*>(options.get<String, Symbol>("ncat_ord").c_str()));
         }
 
         // options
@@ -239,17 +239,17 @@ void Init_ext() {
 
         double* numeric_data = nullptr;
         if (ncols_numeric > 0) {
-          numeric_data = (double*) options.get<String, Symbol>("numeric_data").c_str();
+          numeric_data = reinterpret_cast<double*>(const_cast<char*>(options.get<String, Symbol>("numeric_data").c_str()));
         }
 
         int* categorical_data = nullptr;
         if (ncols_categ > 0) {
-          categorical_data = (int*) options.get<String, Symbol>("categorical_data").c_str();
+          categorical_data = reinterpret_cast<int*>(const_cast<char*>(options.get<String, Symbol>("categorical_data").c_str()));
         }
 
         int* ordinal_data = nullptr;
         if (ncols_ord > 0) {
-          ordinal_data = (int*) options.get<String, Symbol>("ordinal_data").c_str();
+          ordinal_data = reinterpret_cast<int*>(const_cast<char*>(options.get<String, Symbol>("ordinal_data").c_str()));
         }
 
         // options
