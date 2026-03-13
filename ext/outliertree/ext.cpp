@@ -11,9 +11,7 @@
 #include <rice/rice.hpp>
 #include <rice/stl.hpp>
 
-using Rice::Array;
 using Rice::Hash;
-using Rice::Object;
 using Rice::String;
 using Rice::Symbol;
 
@@ -143,12 +141,12 @@ void Init_ext() {
     .define_method(
       "all_clusters",
       [](ModelOutputs& self, size_t i, size_t j) {
-        return self.all_clusters[i][j];
+        return self.all_clusters.at(i).at(j);
       })
     .define_method(
       "all_trees",
       [](ModelOutputs& self, size_t i, size_t j) {
-        return self.all_trees[i][j];
+        return self.all_trees.at(i).at(j);
       });
 
   rb_mExt
@@ -158,47 +156,47 @@ void Init_ext() {
         ModelOutputs model_outputs;
 
         // data
-        size_t nrows = options.get<size_t, Symbol>("nrows");
-        size_t ncols_numeric = options.get<size_t, Symbol>("ncols_numeric");
-        size_t ncols_categ = options.get<size_t, Symbol>("ncols_categ");
-        size_t ncols_ord = options.get<size_t, Symbol>("ncols_ord");
+        auto nrows = options.get<size_t, Symbol>("nrows");
+        auto ncols_numeric = options.get<size_t, Symbol>("ncols_numeric");
+        auto ncols_categ = options.get<size_t, Symbol>("ncols_categ");
+        auto ncols_ord = options.get<size_t, Symbol>("ncols_ord");
 
-        double *restrict numeric_data = NULL;
+        double *restrict numeric_data = nullptr;
         if (ncols_numeric > 0) {
           numeric_data = (double*) options.get<String, Symbol>("numeric_data").c_str();
         }
 
-        int *restrict categorical_data = NULL;
-        int *restrict ncat = NULL;
+        int *restrict categorical_data = nullptr;
+        int *restrict ncat = nullptr;
         if (ncols_categ > 0) {
           categorical_data = (int*) options.get<String, Symbol>("categorical_data").c_str();
           ncat = (int*) options.get<String, Symbol>("ncat").c_str();
         }
 
-        int *restrict ordinal_data = NULL;
-        int *restrict ncat_ord = NULL;
+        int *restrict ordinal_data = nullptr;
+        int *restrict ncat_ord = nullptr;
         if (ncols_ord > 0) {
           ordinal_data = (int*) options.get<String, Symbol>("ordinal_data").c_str();
           ncat_ord = (int*) options.get<String, Symbol>("ncat_ord").c_str();
         }
 
         // options
-        char *restrict cols_ignore = NULL;
-        int nthreads = options.get<int, Symbol>("nthreads");
-        bool categ_as_bin = options.get<bool, Symbol>("categ_as_bin");
-        bool ord_as_bin = options.get<bool, Symbol>("ord_as_bin");
-        bool cat_bruteforce_subset = options.get<bool, Symbol>("cat_bruteforce_subset");
-        bool categ_from_maj = options.get<bool, Symbol>("categ_from_maj");
-        bool take_mid = options.get<bool, Symbol>("take_mid");
-        size_t max_depth = options.get<size_t, Symbol>("max_depth");
-        double max_perc_outliers = options.get<double, Symbol>("pct_outliers");
-        size_t min_size_numeric = options.get<size_t, Symbol>("min_size_numeric");
-        size_t min_size_categ = options.get<size_t, Symbol>("min_size_categ");
-        double min_gain = options.get<double, Symbol>("min_gain");
-        bool gain_as_pct = options.get<bool, Symbol>("gain_as_pct");
-        bool follow_all = options.get<bool, Symbol>("follow_all");
-        double z_norm = options.get<double, Symbol>("z_norm");
-        double z_outlier = options.get<double, Symbol>("z_outlier");
+        char *restrict cols_ignore = nullptr;
+        auto nthreads = options.get<int, Symbol>("nthreads");
+        auto categ_as_bin = options.get<bool, Symbol>("categ_as_bin");
+        auto ord_as_bin = options.get<bool, Symbol>("ord_as_bin");
+        auto cat_bruteforce_subset = options.get<bool, Symbol>("cat_bruteforce_subset");
+        auto categ_from_maj = options.get<bool, Symbol>("categ_from_maj");
+        auto take_mid = options.get<bool, Symbol>("take_mid");
+        auto max_depth = options.get<size_t, Symbol>("max_depth");
+        auto max_perc_outliers = options.get<double, Symbol>("pct_outliers");
+        auto min_size_numeric = options.get<size_t, Symbol>("min_size_numeric");
+        auto min_size_categ = options.get<size_t, Symbol>("min_size_categ");
+        auto min_gain = options.get<double, Symbol>("min_gain");
+        auto gain_as_pct = options.get<bool, Symbol>("gain_as_pct");
+        auto follow_all = options.get<bool, Symbol>("follow_all");
+        auto z_norm = options.get<double, Symbol>("z_norm");
+        auto z_outlier = options.get<double, Symbol>("z_outlier");
 
         fit_outliers_models(
           model_outputs,
@@ -234,28 +232,28 @@ void Init_ext() {
       "find_new_outliers",
       [](ModelOutputs& model_outputs, Hash options) {
         // data
-        size_t nrows = options.get<size_t, Symbol>("nrows");
-        size_t ncols_numeric = options.get<size_t, Symbol>("ncols_numeric");
-        size_t ncols_categ = options.get<size_t, Symbol>("ncols_categ");
-        size_t ncols_ord = options.get<size_t, Symbol>("ncols_ord");
+        auto nrows = options.get<size_t, Symbol>("nrows");
+        auto ncols_numeric = options.get<size_t, Symbol>("ncols_numeric");
+        auto ncols_categ = options.get<size_t, Symbol>("ncols_categ");
+        auto ncols_ord = options.get<size_t, Symbol>("ncols_ord");
 
-        double *restrict numeric_data = NULL;
+        double *restrict numeric_data = nullptr;
         if (ncols_numeric > 0) {
           numeric_data = (double*) options.get<String, Symbol>("numeric_data").c_str();
         }
 
-        int *restrict categorical_data = NULL;
+        int *restrict categorical_data = nullptr;
         if (ncols_categ > 0) {
           categorical_data = (int*) options.get<String, Symbol>("categorical_data").c_str();
         }
 
-        int *restrict ordinal_data = NULL;
+        int *restrict ordinal_data = nullptr;
         if (ncols_ord > 0) {
           ordinal_data = (int*) options.get<String, Symbol>("ordinal_data").c_str();
         }
 
         // options
-        int nthreads = options.get<int, Symbol>("nthreads");
+        auto nthreads = options.get<int, Symbol>("nthreads");
 
         find_new_outliers(
           numeric_data,
